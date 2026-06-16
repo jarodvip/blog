@@ -1,0 +1,61 @@
+<article class="max-w-[900px] mx-auto px-6 py-16">
+  <!-- 文章头部 -->
+  <header class="mb-12">
+    <div class="flex flex-wrap items-center gap-3 mb-6">
+      <span class="text-mute font-mono text-xs"><%= post.date.format('YYYY.MM.DD') %></span>
+      <% if (post.tags && post.tags.length) { %>
+        <% post.tags.forEach(function(tag) { %>
+        <a class="tag" href="<%- url_for(tag.path) %>"><%= tag.name %></a>
+        <% }); %>
+      <% } %>
+      <% if (theme.theme.post && theme.theme.post.reading_time) { %>
+      <span class="tag"><%= post.length %> <%- __('read_time') %></span>
+      <% } %>
+    </div>
+
+    <h1 class="cn text-[32px] md:text-[40px] font-semibold tracking-tight mb-6"><%= post.title %></h1>
+
+    <% if (post.description) { %>
+    <p class="cn text-dim text-lg leading-relaxed"><%= post.description %></p>
+    <% } %>
+
+    <% if (post.updated) { %>
+    <p class="text-mute text-xs font-mono mt-4"><%- __('updated_at') %> <%= post.date.format('YYYY-MM-DD') %></p>
+    <% } %>
+  </header>
+
+  <div class="grid grid-cols-1 lg:grid-cols-[1fr_180px] gap-12">
+    <!-- 文章内容 -->
+    <div class="article-content">
+      <%- post.content %>
+    </div>
+
+    <!-- 目录 -->
+    <% if (theme.theme.post && theme.theme.post.toc && post.toc) { %>
+    <aside class="hidden lg:block">
+      <div class="sticky top-24">
+        <div class="text-mute text-xs font-mono mb-3"><%- __('toc') %></div>
+        <nav class="text-sm">
+          <%- post.toc %>
+        </nav>
+      </div>
+    </aside>
+    <% } %>
+  </div>
+
+  <!-- 文章分页 -->
+  <div class="flex items-center justify-between mt-16 pt-8 border-t" style="border-color: var(--border);">
+    <% if (post.prev) { %>
+    <a class="ulink text-sm" href="<%- url_for(post.prev.path) %>">
+      ← <%= __('previous') %>
+    </a>
+    <% } else { %>
+    <span></span>
+    <% } %>
+    <% if (post.next) { %>
+    <a class="ulink text-sm" href="<%- url_for(post.next.path) %>">
+      <%= __('next_post') %> →
+    </a>
+    <% } %>
+  </div>
+</article>

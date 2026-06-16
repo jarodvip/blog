@@ -1,0 +1,39 @@
+zh-CN:
+  # 通用
+  home: "首页"
+  articles: "文章"
+  archive: "归档"
+  archives: "归档"
+  categories: "分类"
+  categories_flat: "分类"
+  tags: "标签"
+  about: "关于"
+  friends: "友链"
+  projects: "项目"
+  tools: "工具"
+  read_time: "分钟阅读"
+  prev: "上一页"
+  next: "下一页"
+  older: "更早"
+  newer: "更新"
+  previous: "上一篇"
+  next_post: "下一篇"
+  share: "分享"
+  comment: "评论"
+  subscribe: "订阅"
+  rss: "RSS"
+  toc: "目录"
+  table_of_contents: "目录"
+
+  # 文章页
+  posted_at: "发布于"
+  updated_at: "更新于"
+  tag: "标签"
+  category: "分类"
+
+  # 404
+  not_found: "页面不存在"
+  back_to_home: "返回首页"
+
+  # 搜索
+  search: "搜索"

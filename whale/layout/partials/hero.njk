@@ -1,0 +1,49 @@
+<!-- ===================== Hero ===================== -->
+<section class="max-w-[1400px] mx-auto px-6 pt-20 md:pt-28 pb-16 md:pb-20 min-h-[100dvh]">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+    <!-- 左侧文案 -->
+    <div class="lg:col-span-7 reveal">
+      <div class="flex flex-wrap items-center gap-2 mb-6">
+        <span class="badge">v<%- config.version || '2026' %></span>
+        <span class="badge"><%- theme.theme.subtitle || '独立开发者' %></span>
+        <span class="badge accent"><%- __('原创内容') %></span>
+      </div>
+
+      <h1 class="cn text-[42px] md:text-[58px] leading-[1.05] tracking-tight font-semibold">
+        <%= theme.hero.tagline.replace('\n', '<br/>') %>
+      </h1>
+
+      <p class="cn mt-7 text-dim text-[15.5px] leading-relaxed max-w-[58ch]">
+        <%- theme.hero.bio %>
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-3">
+        <a class="btn btn-primary" href="#articles"><%- __('阅读最新') %></a>
+        <a class="btn btn-ghost" href="<%- url_for('/archives') %>"><%- __('查看归档') %></a>
+        <a class="ulink text-sm ml-2" href="<%- url_for('/about') %>"><%= __('关于我') %></a>
+      </div>
+    </div>
+
+    <!-- 右侧：终端 -->
+    <div class="lg:col-span-5 reveal">
+      <div class="term">
+        <div class="term-head">
+          <span class="dot" style="background:#ff5f56"></span>
+          <span class="dot" style="background:#ffbd2e"></span>
+          <span class="dot" style="background:#27c93f"></span>
+          <span class="ml-3 text-mute text-xs font-mono">~/whale — zsh — 92×24</span>
+        </div>
+        <div class="term-body">
+          <div><span class="term-prompt">$</span> <span class="term-cmd">whoami</span></div>
+          <div class="term-out-dim">→ <%= theme.hero.terminal.whoami %></div>
+          <div class="mt-2"><span class="term-prompt">$</span> <span class="term-cmd">cat about.md</span></div>
+          <% theme.hero.terminal.facts.forEach(function(fact) { %>
+          <div><%= fact %></div>
+          <% }); %>
+          <div class="mt-2"><span class="term-prompt">$</span> <span class="cursor"></span></div>
+        </div>
+      </div>
+      <p class="text-mute text-xs font-mono mt-3 text-center">↑ <%- __('另一种自我介绍') %></p>
+    </div>
+  </div>
+</section>

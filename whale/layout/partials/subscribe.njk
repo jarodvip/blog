@@ -1,0 +1,17 @@
+<!-- ===================== 订阅 ===================== -->
+<% if (theme.theme.subscribe && theme.theme.subscribe.enabled) { %>
+<section id="subscribe" class="max-w-[1400px] mx-auto px-6 py-20">
+  <div class="card p-10 md:p-16 text-center" style="background: radial-gradient(ellipse at top, rgba(217,70,239,0.08), transparent 70%), var(--bg-card);">
+    <div class="text-mute font-mono text-xs mb-3">~/subscribe</div>
+    <h2 class="cn text-3xl md:text-4xl font-semibold tracking-tight mb-4"><%= theme.theme.subscribe.title %></h2>
+    <p class="cn text-dim text-sm max-w-[52ch] mx-auto mb-8"><%= theme.theme.subscribe.desc %></p>
+    <form class="flex flex-col sm:flex-row gap-3 max-w-[440px] mx-auto" onsubmit="event.preventDefault(); this.querySelector('button').textContent='<%- __('已订阅') %> ✓';">
+      <input type="email" placeholder="<%= theme.theme.subscribe.emailPlaceholder %>" required class="flex-1 border rounded-lg px-4 py-2.5 text-sm focus:outline-none transition" style="background: var(--bg-elev); border-color: var(--border); color: var(--text);">
+      <button class="btn btn-primary justify-center"><%= __('订阅') %> →</button>
+    </form>
+    <div class="text-mute text-xs font-mono mt-6">
+      或通过 <a class="ulink" href="<%- url_for('/atom.xml') %>">RSS</a>
+    </div>
+  </div>
+</section>
+<% } %>

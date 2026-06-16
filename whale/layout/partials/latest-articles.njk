@@ -1,0 +1,36 @@
+<!-- ===================== 最新文章 ===================== -->
+<section id="articles" class="max-w-[1400px] mx-auto px-6 py-16">
+  <div class="flex items-end justify-between mb-10">
+    <div>
+      <div class="text-mute font-mono text-xs mb-2">~/articles</div>
+      <h2 class="cn text-3xl font-semibold tracking-tight"><%- __('最新文章') %></h2>
+    </div>
+    <a class="ulink text-sm" href="<%- url_for('/archives') %>"><%- __('查看全部') %> →</a>
+  </div>
+
+  <div>
+    <%
+      const posts = page.posts || site.posts;
+      const recentPosts = posts.sort('date', -1).limit(5);
+      recentPosts.each(function(post) {
+    %>
+    <article class="row">
+      <span class="date"><%= post.date.format('YYYY.MM.DD') %></span>
+      <div>
+        <h3 class="cn"><a class="ulink" href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
+        <p class="cn text-dim text-sm mt-1.5"><%= post.description || post.excerpt ? strip_html(post.description || post.excerpt).substring(0, 80) + '...' : '' %></p>
+      </div>
+      <div class="meta hide-sm">
+        <% if (post.tags && post.tags.length) { %>
+        <% post.tags.forEach(function(tag) { %>
+          <span class="tag"><%= tag.name %></span>
+        <% }); %>
+        <% } %>
+        <% if (theme.theme.post && theme.theme.post.reading_time) { %>
+        <span class="tag"><%= post.length %> <%- __('read_time') %></span>
+        <% } %>
+      </div>
+    </article>
+    <% }); %>
+  </div>
+</section>

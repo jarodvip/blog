@@ -1,0 +1,41 @@
+<%- partial('partials/ticker') %>
+
+<section class="max-w-[1400px] mx-auto px-6 py-16">
+  <div class="text-mute font-mono text-xs mb-2">~/categories/<%= page.name %></div>
+  <h2 class="cn text-3xl font-semibold tracking-tight mb-10">
+    <%- __('category') %>: <span class="text-accent">#</span> <%= page.name %>
+  </h2>
+
+  <div class="space-y-6">
+    <% page.posts.each(function(post) { %>
+    <article class="row">
+      <span class="date"><%= post.date.format('YYYY.MM.DD') %></span>
+      <div>
+        <h3 class="cn"><a class="ulink" href="<%- url_for(post.path) %>"><%= post.title %></a></h3>
+        <p class="cn text-dim text-sm mt-1.5"><%= (post.description || post.excerpt || '').substring(0, 80) %></p>
+      </div>
+      <div class="meta hide-sm">
+        <% if (post.tags && post.tags.length) { %>
+        <% post.tags.forEach(function(tag) { %>
+          <span class="tag"><%= tag.name %></span>
+        <% }); %>
+        <% } %>
+      </div>
+    </article>
+    <% }); %>
+  </div>
+
+  <!-- 分页 -->
+  <% if (page.total && page.total > 1) { %>
+  <div class="pagination flex items-center justify-center gap-4 mt-12">
+    <% if (page.current > 1) { %>
+    <a class="btn btn-ghost" href="<%- url_for(page.prev_link) %>"><%- __('prev') %></a>
+    <% } %>
+    <% if (page.current < page.total) { %>
+    <a class="btn btn-ghost" href="<%- url_for(page.next_link) %>"><%- __('next') %></a>
+    <% } %>
+  </div>
+  <% } %>
+</section>
+
+<%- partial('partials/subscribe') %>

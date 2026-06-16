@@ -1,0 +1,15 @@
+<!-- ===================== 运作方式 ===================== -->
+<% if (theme.theme.howItWorks && theme.theme.howItWorks.enabled) { %>
+<section class="max-w-[1400px] mx-auto px-6 py-10">
+  <div class="divider mb-12">═══ <%= theme.theme.howItWorks.title %> ═══</div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <% theme.theme.howItWorks.items.forEach(function(item) { %>
+    <div class="card p-7 md:p-8">
+      <div class="font-mono text-accent text-xs mb-4"><%= item.order %></div>
+      <h3 class="cn text-lg font-medium mb-2"><%= item.title %></h3>
+      <p class="cn text-dim text-sm leading-relaxed"><%= item.desc %></p>
+    </div>
+    <% }); %>
+  </div>
+</section>
+<% } %>

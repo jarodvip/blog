@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-color-mode="dark" data-light-theme="light" data-dark-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= page.title ? page.title + ' · ' : '' %><%- config.title %></title>
+  <meta name="description" content="<%= page.description || config.description %>">
+
+  <% theme.custom.css.forEach(function(css) { %>
+  <link rel="stylesheet" href="<%= css %>">
+  <% }); %>
+
+  <link rel="stylesheet" href="<%- url_for('css/style.css') %>">
+
+  <% if (config.head && config.head.prepend) { %>
+    <%= config.head.prepend %>
+  <% } %>
+</head>
+<body class="antialiased">
+  <!-- ==================== 导航栏 ==================== -->
+  <header class="sticky top-0 z-50 backdrop-blur-xl bg-black/70 border-b" style="border-color: var(--border);">
+    <nav class="max-w-[1400px] mx-auto px-6 h-16 flex items-center gap-8">
+      <a href="<%- url_for('/') %>" class="flex items-baseline gap-2 group">
+        <span class="font-mono text-base font-semibold">~/whale</span>
+        <span class="text-mute text-xs font-mono hidden sm:inline"><%- config.url.replace(/https?:\/\//, '').replace(/:$/, '') %></span>
+      </a>
+
+      <ul class="hidden md:flex items-center gap-7 text-sm">
+        <% Object.entries(theme.menu || {}).forEach(function(item) { %>
+          <li><a class="nav-link" href="<%- item[1] %>"><%- item[0] %></a></li>
+        <% }); %>
+      </ul>
+
+      <div class="ml-auto flex items-center gap-3 sm:gap-4 text-sm">
+        <% if (theme.social) { %>
+          <% if (theme.social.github) { %>
+          <a class="nav-link hidden sm:flex items-center gap-1.5" href="<%- theme.social.github %>" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .3"/></svg>
+          </a>
+          <% } %>
+          <% if (theme.social.twitter) { %>
+          <a class="nav-link hidden sm:flex items-center gap-1.5" href="<%- theme.social.twitter %>" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <% } %>
+          <% if (theme.social.email) { %>
+          <a class="nav-link" href="<%- theme.social.email %>">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          </a>
+          <% } %>
+        <% } %>
+
+        <% if ((theme.subscribe && theme.subscribe.enabled) || theme.menu && theme.menu.RSS) { %>
+        <a class="btn btn-primary" href="<%- theme.menu && theme.menu.RSS ? theme.menu.RSS : '#subscribe' %>"><%- __('subscribe') %></a>
+        <% } %>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ==================== 主内容 ==================== -->
+  <main>
+    <%- body %>
+  </main>
+
+  <!-- ==================== Footer ==================== -->
+  <footer class="border-t" style="border-color: var(--border);">
+    <div class="max-w-[1400px] mx-auto px-6 py-14">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-8 mb-10">
+        <div class="col-span-2">
+          <div class="font-mono text-base font-semibold mb-2">~/whale</div>
+          <p class="cn text-dim text-sm max-w-[28ch]"><%- config.description %></p>
+          <div class="flex gap-3 mt-4 text-dim">
+            <% if (theme.social && theme.social.github) { %>
+            <a class="hover:text-white transition" href="<%- theme.social.github %>" target="_blank" rel="noopener" aria-label="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.69.83.57A12 12 0 0 0 12 .3"/></svg>
+            </a>
+            <% } %>
+            <% if (theme.social && theme.social.twitter) { %>
+            <a class="hover:text-white transition" href="<%- theme.social.twitter %>" target="_blank" rel="noopener" aria-label="Twitter">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <% } %>
+            <% if (theme.social && theme.social.email) { %>
+            <a class="hover:text-white transition" href="<%- theme.social.email %>" aria-label="Email">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            </a>
+            <% } %>
+          </div>
+        </div>
+        <div>
+          <div class="text-mute text-xs font-mono mb-3">// 内容</div>
+          <ul class="space-y-2 text-sm text-dim">
+            <li><a class="hover:text-white transition" href="<%- url_for('/archives') %>"><%- __('archives') %></a></li>
+            <% if (page.categories && page.categories.length) { %>
+            <li><a class="hover:text-white transition" href="<%- url_for('/categories') %>"><%- __('categories') %></a></li>
+            <% } %>
+            <li><a class="hover:text-white transition" href="<%- url_for('/atom.xml') %>"><%- __('rss') %></a></li>
+            <% if (theme.subscribe && theme.subscribe.enabled) { %>
+            <li><a class="hover:text-white transition" href="#subscribe"><%- __('newsletter', ['Newsletter']) %></a></li>
+            <% } %>
+          </ul>
+        </div>
+        <div>
+          <div class="text-mute text-xs font-mono mb-3">// 站点</div>
+          <ul class="space-y-2 text-sm text-dim">
+            <li><a class="hover:text-white transition" href="<%- url_for('/about') %>"><%- __('about') %></a></li>
+            <li><a class="hover:text-white transition" href="<%- url_for('/friends') %>"><%- __('friends') %></a></li>
+            <li><a class="hover:text-white transition" href="<%- url_for('/404') %>">404</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="text-mute text-xs font-mono mb-3">// 镜像</div>
+          <ul class="space-y-2 text-sm text-dim">
+            <li><a class="hover:text-white transition" href="<%- config.url %>"><%- '主站' %></a></li>
+            <li><a class="hover:text-white transition" href="#">GitHub Pages</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 border-t text-mute text-xs font-mono" style="border-color: var(--border);">
+        <div><%- theme.footer && theme.footer.copy || '© 2024-2026 Jarod' %></div>
+        <div>last build: <%= new Date().toLocaleDateString('zh-CN') %></div>
+      </div>
+    </div>
+  </footer>
+
+  <% theme.custom.js.forEach(function(js) { %>
+  <script src="<%- js %>"></script>
+  <% }); %>
+  <script src="<%- url_for('js/main.js') %>"></script>
+
+  <% if (config.head && config.head.append) { %>
+    <%= config.head.append %>
+  <% } %>
+</body>
+</html>

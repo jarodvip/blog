@@ -1,0 +1,56 @@
+<!-- ===================== Live Ticker ===================== -->
+<section class="ticker-wrap" aria-label="<%- __('实时活动流') %>">
+  <div class="max-w-[1400px] mx-auto px-6 flex items-center gap-4">
+    <span class="text-xs font-mono text-dim whitespace-nowrap flex items-center">
+      <span class="live-dot"></span><%- __('live') %>
+    </span>
+    <div class="flex-1 overflow-hidden">
+      <div class="ticker">
+        <%
+          // 使用文章列表生成 ticker 项
+          const posts = page.posts || [];
+          const tickerItems = [];
+          posts.limit(theme.stats ? theme.stats.length : 8).each(function(post) {
+            tickerItems.push({
+              type: 'post',
+              text: post.title,
+              time: post.date.format('YYYY.MM.DD')
+            });
+          });
+          // 如果文章不足，用默认项
+          if (tickerItems.length < 4) {
+            tickerItems.push({ type: 'release', text: 'whale-theme v2.0.0', time: '3h' });
+            tickerItems.push({ type: 'commit', text: 'chore: update theme config', time: '12m' });
+          }
+        %>
+        <% tickerItems.forEach(function(item) { %>
+        <%
+          let icon = '✎', tagColor = '';
+          if (item.type === 'commit') { icon = '★'; tagColor = 'var(--term-cyan)'; }
+          else if (item.type === 'release') { icon = '▲'; tagColor = 'var(--term-green)'; }
+          else { tagColor = 'var(--accent)'; }
+        %>
+        <span class="ticker-item">
+          <span class="tag" style="color: <%= tagColor %>"><%= icon %> <%= item.type %></span>
+          <%= item.text %>
+          <span class="ts">· <%= item.time %></span>
+        </span>
+        <% }); %>
+        <!-- duplicate for seamless loop -->
+        <% tickerItems.forEach(function(item) { %>
+        <%
+          let icon = '✎', tagColor = '';
+          if (item.type === 'commit') { icon = '★'; tagColor = 'var(--term-cyan)'; }
+          else if (item.type === 'release') { icon = '▲'; tagColor = 'var(--term-green)'; }
+          else { tagColor = 'var(--accent)'; }
+        %>
+        <span class="ticker-item">
+          <span class="tag" style="color: <%= tagColor %>"><%= icon %> <%= item.type %></span>
+          <%= item.text %>
+          <span class="ts">· <%= item.time %></span>
+        </span>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+</section>

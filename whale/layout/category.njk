@@ -1,0 +1,20 @@
+<%- partial('partials/ticker') %>
+
+<section class="max-w-[1400px] mx-auto px-6 py-16">
+  <div class="text-mute font-mono text-xs mb-2">~/categories</div>
+  <h2 class="cn text-3xl font-semibold tracking-tight mb-10"><%- __('categories') %></h2>
+
+  <%
+    const categories = site.categories.sort('length', -1);
+    categories.each(function(cat) {
+  %>
+  <div class="mb-8">
+    <a class="ulink text-xl font-mono" href="<%- url_for(cat.path) %>">
+      <span class="text-accent">#</span> <%= cat.name %>
+      <span class="text-mute text-sm ml-2">(<%= cat.length %>)</span>
+    </a>
+  </div>
+  <% }); %>
+</section>
+
+<%- partial('partials/subscribe') %>
